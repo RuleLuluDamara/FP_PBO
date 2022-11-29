@@ -1,9 +1,13 @@
 # FP_PBO
 
 FINAL PROJECT OBJECT ORIENTED PROGRAMMING
+
 Nama  : Rule Lulu Damara
+
 Kelas : PBO B
+
 NRP   : 5025211050
+
 
 
 Final project saya akan membuat suatu game yang didasari oleh bahasa pemrograman Java dengan menggunakan Graphical User Interface yaitu bernama Divoc Invaders. 
