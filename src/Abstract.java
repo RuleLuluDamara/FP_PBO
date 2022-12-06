@@ -2,7 +2,6 @@ import java.awt.Image;
 
 //abstract
 public class Abstract {
-
     private boolean visible;
     private Image image;
     private boolean dying;

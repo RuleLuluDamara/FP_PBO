@@ -15,7 +15,6 @@ public class Virus extends Abstract {
         bomb = new virusShot(x, y);//alien mengeluarkan bomb
         var virusImg = "images/Virus.png";
         var ii = new ImageIcon(virusImg);
-
         setImage(ii.getImage());
     }
 

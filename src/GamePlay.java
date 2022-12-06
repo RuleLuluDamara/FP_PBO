@@ -13,23 +13,26 @@ import java.util.Random;
 
 public class GamePlay extends JPanel {
     private Image background;
+    private Image bgGameOver;
     private List<Virus> viruses;
     private Player player;
     private ShotSinovac shotSinovac;
-    private int direction = -1; //arah dan kecepatan alien
+    private int direction = 1; //arah dan kecepatan alien
     private int deaths = 0;
+    private int score = 0;
+
 
     private boolean inGame = true;
-    private String explode = "images/explode.png";
-    private String message = "Game Over";
+    private String explode = "images/explode.pn g";
+    private String message = "images/gameover.png";
     private Timer timer;
 
     public GamePlay() {
-        initBoard();
-        gameInit();
+        initGamePlay();
+        //gameInit();
     }
 
-    private void initBoard() {
+    private void initGamePlay() {
         addKeyListener(new Control());
         setFocusable(true);
 
@@ -61,6 +64,7 @@ public class GamePlay extends JPanel {
     private void drawViruses(Graphics g) {
 
         for (Virus virus : viruses) {
+
 
             if (virus.isVisible()) {
                 g.drawImage(virus.getImage(), virus.getX(), virus.getY(), this);
@@ -107,12 +111,16 @@ public class GamePlay extends JPanel {
 
     private void doDrawing(Graphics g) {
 
-        //g.setColor(Color.black);
-        g.setColor(Color.green);
         g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
         if (inGame) {
-            g.drawLine(0, Interface.GROUND,
+            g.setColor(new Color(78, 43, 0));
+            g.fillRect(0, Interface.GROUND,
                     Interface.BOARD_WIDTH, Interface.GROUND);
+            g.setColor(new Color(78, 43, 0));
+            g.drawRect(0, Interface.GROUND,
+                    Interface.BOARD_WIDTH, Interface.GROUND);
+//            g.drawLine(0, Interface.GROUND,
+//                    Interface.BOARD_WIDTH, Interface.GROUND);
 
             drawViruses(g);
             drawPlayer(g);
@@ -130,21 +138,43 @@ public class GamePlay extends JPanel {
 
     private void gameOver(Graphics g) {
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, Interface.BOARD_WIDTH, Interface.BOARD_HEIGHT);
+//        g.setColor(Color.black);
+//        g.fillRect(0, 0, Interface.BOARD_WIDTH, Interface.BOARD_HEIGHT);
+//        ImageIcon obj2 = new ImageIcon("images/gameover.png");
+//        bgGameOver = obj2.getImage();
+//
+//        g.drawImage(bgGameOver, 0, 0 , getWidth(), getHeight(), null);
+//        g.setColor(new Color(102, 51, 0));
+//        g.fillRect(50, Interface.BOARD_HEIGHT / 2 - 50, Interface.BOARD_WIDTH - 100, 50);
+//        g.setColor(new Color(102, 51, 0));
+//        g.drawRect(50, Interface.BOARD_HEIGHT / 2 - 50, Interface.BOARD_WIDTH - 100, 50);
+//
+//        var small = new Font("GravityBold8", Font.BOLD, 14);
+//        var fontMetrics = this.getFontMetrics(small);
+//
+//        g.setColor(Color.white);
+//        g.setFont(small);
+//        g.drawString(message, (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2,
+//                Interface.BOARD_WIDTH / 2);
 
-        g.setColor(new Color(0, 32, 48));
-        g.fillRect(50, Interface.BOARD_WIDTH / 2 - 30, Interface.BOARD_WIDTH - 100, 50);
-        g.setColor(Color.white);
-        g.drawRect(50, Interface.BOARD_WIDTH / 2 - 30, Interface.BOARD_WIDTH - 100, 50);
+        ImageIcon obj = new ImageIcon(message);
+        bgGameOver = obj.getImage();
+        g.drawImage(bgGameOver, 0, 0 , getWidth(), getHeight(), null);
 
-        var small = new Font("Helvetica", Font.BOLD, 14);
+//        g.setColor(new Color(102, 51, 0));
+//        g.fillRect(50, Interface.BOARD_HEIGHT / 2 - 50, Interface.BOARD_WIDTH - 100, 50);
+//        g.setColor(new Color(102, 51, 0));
+//        g.drawRect(50, Interface.BOARD_HEIGHT / 2 - 50, Interface.BOARD_WIDTH - 100, 50);
+
+        var small = new Font("GravityBold8", Font.BOLD, 14);
         var fontMetrics = this.getFontMetrics(small);
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString(message, (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2,
-                Interface.BOARD_WIDTH / 2);
+        g.drawString("SCORE", (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2,
+                Interface.BOARD_HEIGHT / 2 + 50);
+        g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2 + 100,
+                Interface.BOARD_HEIGHT / 2 + 50);
     }
 
     private void update() {
@@ -152,7 +182,7 @@ public class GamePlay extends JPanel {
         if (deaths == Interface.NUMBER_OF_VIRUS) {
             inGame = false;
             timer.stop();
-            message = "Game won!";
+            message = "images/youwin.png";
         }
 
         // player
@@ -177,6 +207,7 @@ public class GamePlay extends JPanel {
                         virus.setImage(ii.getImage());
                         virus.setDying(true);
                         deaths++;
+                        score += 20;
                         shotSinovac.die();
                     }
                 }
@@ -198,7 +229,7 @@ public class GamePlay extends JPanel {
 
             int x = virus.getX();
 
-            if (x >= Interface.BOARD_WIDTH - Interface.BORDER_RIGHT && direction != -1) {
+            if (x >= Interface.BOARD_WIDTH - Interface.BORDER_RIGHT - 30 && direction != -1) {
 
                 direction = -1;
 
@@ -231,7 +262,7 @@ public class GamePlay extends JPanel {
                 int y = virus.getY();
                 if (y > Interface.GROUND - Interface.ALIEN_HEIGHT) {
                     inGame = false;
-                    message = "Invasion!";
+                    message = "images/pandemic.png";
                 }
                 virus.act(direction);
             }

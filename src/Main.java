@@ -5,3 +5,11 @@ public class Main extends JFrame  {
         new GameFrame();
     }
 }
+
+//    External Source :
+//
+//    https://zetcode.com/javagames/spaceinvaders/
+//
+//    github : tatilattanzi/java-space-invaders
+//
+//    github : labibs30/FP_PBO_A

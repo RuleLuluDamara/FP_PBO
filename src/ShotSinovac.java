@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 public class ShotSinovac extends Abstract {
 
     private int width;
-        public ShotSinovac() {
+    public ShotSinovac() {
     }
 
     public ShotSinovac(int x, int y) {

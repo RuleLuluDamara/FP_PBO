@@ -14,12 +14,11 @@ public interface Interface {
 
     int ALIEN_HEIGHT = 60;
     int ALIEN_WIDTH = 60;
-    int ALIEN_INIT_X = 150; //jarak antar alien
+    int ALIEN_INIT_X = BOARD_WIDTH/2 - Interface.PLAYER_WIDTH*2; //koordinat awal virus
     int ALIEN_INIT_Y = 20;
 
-
-    int GO_DOWN = 15;
-    int NUMBER_OF_VIRUS = 28;
+    int GO_DOWN = 30;
+    int NUMBER_OF_VIRUS = 4;
     int CHANCE = 5;
     int DELAY = 17;
     int PLAYER_WIDTH = 90;
