@@ -14,12 +14,16 @@ Terdapat beberapa aspek OOP yang saya buat sendiri, ini merupakan salah satu con
 
 1. Casting/Conversion
 ex :
-- g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2 + 100,
+
+     g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2 + 100,
                 Interface.BOARD_HEIGHT / 2 + 50);
 
 2. Encapsulation
 ex : 
-- public int getY() {
+
+
+    public int getY() {
+ 
         return y;
     }
     public void setY(int y) {
@@ -29,7 +33,7 @@ ex :
 3. Contructor 
 ex :
 
--  public Menu(){
+  public Menu(){
         initMenu();
     }
 
@@ -39,7 +43,8 @@ ex :
     }
 4. Input-Output
 ex :
-- public void saveScore() {
+
+    public void saveScore() {
         //String data = Integer.parseInt(score);
 
         data =""+ score;
@@ -75,7 +80,8 @@ ex :
 
 5. Exception Handling
 Ex :
-- FileWriter writeFile = null;
+
+    FileWriter writeFile = null;
         BufferedWriter writer = null;
         try {
             writeFile = new FileWriter(scoreDat);
@@ -95,14 +101,16 @@ Ex :
         }
 
 6. Abstract
-ex 
-- public void die() {
+ex :
+     
+    public void die() {
         visible = false;
     }
 
 7. OverRidding
 ex :
-- private class Control extends KeyAdapter {
+
+    private class Control extends KeyAdapter {
 
         @Override
         public void keyReleased(KeyEvent e) {
