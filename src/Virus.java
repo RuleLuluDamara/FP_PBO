@@ -1,6 +1,6 @@
 import javax.swing.ImageIcon;
 
-public class Virus extends Abstract {
+public class Virus extends abstractSprite {
 
     private virusShot bomb;//Alien menjatuhkan bomb
     //constructor
@@ -13,7 +13,7 @@ public class Virus extends Abstract {
         this.y = y;
 
         bomb = new virusShot(x, y);//alien mengeluarkan bomb
-        var virusImg = "images/Virus.png";
+        var virusImg = "images/virus.png";
         var ii = new ImageIcon(virusImg);
         setImage(ii.getImage());
     }
@@ -26,7 +26,7 @@ public class Virus extends Abstract {
         return bomb;
     }
 
-    public class virusShot extends Abstract {
+    public class virusShot extends abstractSprite {
         private boolean destroyed;
         public virusShot(int x, int y) {
             initBomb(x, y);
@@ -36,7 +36,7 @@ public class Virus extends Abstract {
             this.x = x;
             this.y = y;
 
-            var bombImg = "images/virusShot.png";
+            var bombImg = "images/shot.png";
             var ii = new ImageIcon(bombImg);
             setImage(ii.getImage());
         }

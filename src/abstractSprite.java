@@ -1,7 +1,7 @@
 import java.awt.Image;
 
 //abstract
-public class Abstract {
+public abstract class abstractSprite {
     private boolean visible;
     private Image image;
     private boolean dying;
@@ -13,7 +13,7 @@ public class Abstract {
 
     int width;
 
-    public Abstract() {
+    public abstractSprite() {
         visible = true;
     }
 
@@ -47,7 +47,6 @@ public class Abstract {
         return y;
     }
     public void setY(int y) {
-
         this.y = y;
     }
 
@@ -66,4 +65,5 @@ public class Abstract {
     public void setWidth(int width) {
         this.width = width;
     }
+
 }

@@ -1,17 +1,13 @@
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.awt.event.*;
+import java.io.*;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
-public class GamePlay extends JPanel {
+public class GamePlay extends JPanel{
+    private String data = "";
     private Image background;
     private Image bgGameOver;
     private List<Virus> viruses;
@@ -20,23 +16,20 @@ public class GamePlay extends JPanel {
     private int direction = 1; //arah dan kecepatan alien
     private int deaths = 0;
     private int score = 0;
-
-
     private boolean inGame = true;
-    private String explode = "images/explode.pn g";
+    private boolean inGameEnd = false;
+    private String explode = "images/explode.png";
     private String message = "images/gameover.png";
     private Timer timer;
 
     public GamePlay() {
         initGamePlay();
-        //gameInit();
     }
-
-    private void initGamePlay() {
+    private void initGamePlay(){
         addKeyListener(new Control());
         setFocusable(true);
 
-        ImageIcon obj = new ImageIcon("images/sky.jpg");
+        ImageIcon obj = new ImageIcon("images/sky.png");
         background = obj.getImage();
 
         timer = new Timer(Interface.DELAY, new GameCycle());
@@ -51,9 +44,8 @@ public class GamePlay extends JPanel {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 7; j++) {
-
-                var virus = new Virus(Interface.ALIEN_INIT_X + 50 * j,
-                        Interface.ALIEN_INIT_Y + 50 * i);
+                var virus = new Virus(Interface.VIRUS_INIT_X + 70 * j,
+                        Interface.VIRUS_INIT_Y + 70 * i);
                 viruses.add(virus);
             }
         }
@@ -64,7 +56,6 @@ public class GamePlay extends JPanel {
     private void drawViruses(Graphics g) {
 
         for (Virus virus : viruses) {
-
 
             if (virus.isVisible()) {
                 g.drawImage(virus.getImage(), virus.getX(), virus.getY(), this);
@@ -87,15 +78,14 @@ public class GamePlay extends JPanel {
     }
 
     private void drawShot(Graphics g) {
-
         if (shotSinovac.isVisible()) {
             g.drawImage(shotSinovac.getImage(), shotSinovac.getX(), shotSinovac.getY(), this);
         }
     }
-
     private void drawBombing(Graphics g) {
 
         for (Virus a : viruses) {
+
             Virus.virusShot b = a.getBomb();
             if (!b.isDestroyed()) {
                 g.drawImage(b.getImage(), b.getX(), b.getY(), this);
@@ -113,15 +103,14 @@ public class GamePlay extends JPanel {
 
         g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
         if (inGame) {
-            g.setColor(new Color(78, 43, 0));
-            g.fillRect(0, Interface.GROUND,
-                    Interface.BOARD_WIDTH, Interface.GROUND);
-            g.setColor(new Color(78, 43, 0));
-            g.drawRect(0, Interface.GROUND,
-                    Interface.BOARD_WIDTH, Interface.GROUND);
-//            g.drawLine(0, Interface.GROUND,
+//            g.setColor(new Color(78, 43, 0));
+//            g.fillRect(0, Interface.GROUND,
 //                    Interface.BOARD_WIDTH, Interface.GROUND);
-
+//            g.setColor(new Color(78, 43, 0));
+//            g.drawRect(0, Interface.GROUND,
+//                    Interface.BOARD_WIDTH, Interface.GROUND);
+//            g.drawLine(0, Interface.GROUND,
+//                    Interface.BOARD_WIDTH, Interface.GROUND
             drawViruses(g);
             drawPlayer(g);
             drawShot(g);
@@ -132,49 +121,27 @@ public class GamePlay extends JPanel {
                 timer.stop();
             }
             gameOver(g);
+            saveScore();
         }
         Toolkit.getDefaultToolkit().sync();
     }
 
-    private void gameOver(Graphics g) {
-
-//        g.setColor(Color.black);
-//        g.fillRect(0, 0, Interface.BOARD_WIDTH, Interface.BOARD_HEIGHT);
-//        ImageIcon obj2 = new ImageIcon("images/gameover.png");
-//        bgGameOver = obj2.getImage();
-//
-//        g.drawImage(bgGameOver, 0, 0 , getWidth(), getHeight(), null);
-//        g.setColor(new Color(102, 51, 0));
-//        g.fillRect(50, Interface.BOARD_HEIGHT / 2 - 50, Interface.BOARD_WIDTH - 100, 50);
-//        g.setColor(new Color(102, 51, 0));
-//        g.drawRect(50, Interface.BOARD_HEIGHT / 2 - 50, Interface.BOARD_WIDTH - 100, 50);
-//
-//        var small = new Font("GravityBold8", Font.BOLD, 14);
-//        var fontMetrics = this.getFontMetrics(small);
-//
-//        g.setColor(Color.white);
-//        g.setFont(small);
-//        g.drawString(message, (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2,
-//                Interface.BOARD_WIDTH / 2);
+    private void gameOver(Graphics g){
 
         ImageIcon obj = new ImageIcon(message);
         bgGameOver = obj.getImage();
-        g.drawImage(bgGameOver, 0, 0 , getWidth(), getHeight(), null);
 
-//        g.setColor(new Color(102, 51, 0));
-//        g.fillRect(50, Interface.BOARD_HEIGHT / 2 - 50, Interface.BOARD_WIDTH - 100, 50);
-//        g.setColor(new Color(102, 51, 0));
-//        g.drawRect(50, Interface.BOARD_HEIGHT / 2 - 50, Interface.BOARD_WIDTH - 100, 50);
+        g.drawImage(bgGameOver, 0, 0 , getWidth(), getHeight(), null);
 
         var small = new Font("GravityBold8", Font.BOLD, 14);
         var fontMetrics = this.getFontMetrics(small);
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString("SCORE", (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2,
-                Interface.BOARD_HEIGHT / 2 + 50);
-        g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2 + 100,
-                Interface.BOARD_HEIGHT / 2 + 50);
+        g.drawString("SCORE", (Interface.BOARD_WIDTH/2 - 50),
+                Interface.BOARD_HEIGHT / 2 + 60);
+        g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH/2 + 50),
+                Interface.BOARD_HEIGHT / 2 + 60);
     }
 
     private void update() {
@@ -194,27 +161,27 @@ public class GamePlay extends JPanel {
             int shotY = shotSinovac.getY();
 
             for (Virus virus : viruses) {
-                int alienX = virus.getX();
-                int alienY = virus.getY();
+                int virusX = virus.getX();
+                int virusY = virus.getY();
 
                 if (virus.isVisible() && shotSinovac.isVisible()) {
-                    if (shotX >= (alienX)
-                            && shotX <= (alienX + Interface.ALIEN_WIDTH)
-                            && shotY >= (alienY)
-                            && shotY <= (alienY + Interface.ALIEN_HEIGHT)) {
+                    if (shotX >= (virusX)
+                            && shotX <= (virusX + Interface.VIRUS_WIDTH)
+                            && shotY >= (virusY)
+                            && shotY <= (virusY + Interface.VIRUS_HEIGTH)) {
 
                         var ii = new ImageIcon(explode);
                         virus.setImage(ii.getImage());
                         virus.setDying(true);
                         deaths++;
-                        score += 20;
+                        score += 8;
                         shotSinovac.die();
                     }
                 }
             }
 
             int y = shotSinovac.getY();
-            y -= 10;
+            y -= 20;
 
             if (y < 0) {
                 shotSinovac.die();
@@ -223,7 +190,7 @@ public class GamePlay extends JPanel {
             }
         }
 
-        // aliens
+        // virus
 
         for (Virus virus : viruses) {
 
@@ -260,7 +227,7 @@ public class GamePlay extends JPanel {
 
             if (virus.isVisible()) {
                 int y = virus.getY();
-                if (y > Interface.GROUND - Interface.ALIEN_HEIGHT) {
+                if (y > Interface.GROUND - Interface.VIRUS_HEIGTH) {
                     inGame = false;
                     message = "images/pandemic.png";
                 }
@@ -346,6 +313,55 @@ public class GamePlay extends JPanel {
                     }
                 }
             }
+//            else if (e.getKeyCode() == KeyEvent.VK_ESCAPE && escapeCounter < 1) {
+//                inGame = false;
+//                keyStat = 1;
+//            } else if (inGame && e.getKeyCode() == KeyEvent.VK_ENTER) {
+//                inGame = true;
+//                gameReset();
+//                inGame = true;
+//                gameReset();
+//                inGame = true;
+//                keyStat = 1;
+//            }
+        }
+    }
+
+    public void saveScore() {
+        //String data = Integer.parseInt(score);
+
+        data =""+ score;
+        File scoreDat = new File("scoreDat.txt");
+
+        if(!scoreDat.exists()) {
+            try {
+                scoreDat.createNewFile();
+            }catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        FileWriter writeFile = null;
+        BufferedWriter writer = null;
+        try {
+            writeFile = new FileWriter(scoreDat);
+            writer = new BufferedWriter(writeFile);
+            writer.write(this.data);
+        }catch(Exception e) {
+            //errors
+        }
+        finally {
+            try {
+                if(writer != null){
+                    writer.close();
+                }
+            }catch(Exception e) {
+
+            }
         }
     }
 }
+
+//for (type variableName : arrayName) {
+//        // code block to be executed
+//        }

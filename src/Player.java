@@ -1,21 +1,17 @@
 import javax.swing.ImageIcon;
 import java.awt.event.KeyEvent;
 
-public class Player extends Abstract {
-
+public class Player extends abstractSprite {
     private int width, height;
-
     public Player() {
         initPlayer();
     }
     private void initPlayer() {
-
-        var playerImg = "images/player31.png";
+        var playerImg = "images/player.png";
         var ii = new ImageIcon(playerImg);
 
         width = ii.getImage().getWidth(null);
         height = ii.getImage().getHeight(null);
-
         setImage(ii.getImage());
 
         //int START_X = screenWidth/2 - (width/2);
@@ -23,7 +19,7 @@ public class Player extends Abstract {
         setX(START_X);
 
         //int START_Y = screenHeight;
-        int START_Y = Interface.GROUND;
+        int START_Y = Interface.BOARD_HEIGHT - 10 ;
         setY(START_Y);
     }
 
