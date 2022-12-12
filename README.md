@@ -15,7 +15,8 @@ Terdapat beberapa aspek OOP yang saya buat sendiri, ini merupakan salah satu con
 1. Casting/Conversion
 ex :
 
-     g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2 + 100,
+    
+    g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2 + 100,
                 Interface.BOARD_HEIGHT / 2 + 50);
 
 2. Encapsulation
@@ -33,7 +34,7 @@ ex :
 3. Contructor 
 ex :
 
-  public Menu(){
+     public Menu(){
         initMenu();
     }
 
@@ -133,9 +134,9 @@ ex :
                     }
                 }
             }
-
         }
-    }
+     }
+
 
 External Source :
 
