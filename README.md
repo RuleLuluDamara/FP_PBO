@@ -37,52 +37,59 @@ ex :
 3. Contructor 
 ex :
 
-    public Menu(){
-        initMenu();
-    }
 
-    private void initMenu(){
-        ImageIcon obj1 = new ImageIcon("images/bgMenu.png");
-        bgMenu = obj1.getImage();
-    }
+            public Menu() {
+            
+                initMenu();
+                
+            }
+
+            private void initMenu(){
+            
+                ImageIcon obj1 = new ImageIcon("images/bgMenu.png");
+               
+                bgMenu = obj1.getImage();
+                
+            }
+    
     
     
 4. Input-Output
 ex :
 
         public void saveScore() {
-        //String data = Integer.parseInt(score);
+                //String data = Integer.parseInt(score);
 
-        data =""+ score;
-        File scoreDat = new File("scoreDat.txt");
+                data =""+ score;
+                File scoreDat = new File("scoreDat.txt");
 
-        if(!scoreDat.exists()) {
-            try {
-                scoreDat.createNewFile();
-            }catch(IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        FileWriter writeFile = null;
-        BufferedWriter writer = null;
-        try {
-            writeFile = new FileWriter(scoreDat);
-            writer = new BufferedWriter(writeFile);
-            writer.write(this.data);
-        }catch(Exception e) {
-            //errors
-        }
-        finally {
-            try {
-                if(writer != null){
-                    writer.close();
+                if(!scoreDat.exists()) {
+                    try {
+                        scoreDat.createNewFile();
+                    }catch(IOException e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
-            }catch(Exception e) {
+                FileWriter writeFile = null;
+                BufferedWriter writer = null;
+                try {
+                    writeFile = new FileWriter(scoreDat);
+                    writer = new BufferedWriter(writeFile);
+                    writer.write(this.data);
+                }catch(Exception e) {
+                    //errors
+                }
+                finally {
+                    try {
+                        if(writer != null){
+                            writer.close();
+                        }
+                    }catch(Exception e) {
 
-            }
+                    }
+                }
         }
-    }
 
 
 5. Exception Handling
@@ -108,11 +115,14 @@ ex :
         }
 
 
+
 6. Abstract
 ex : 
 
     public void die() {
+    
         visible = false;
+        
     }
 
 
@@ -122,30 +132,30 @@ ex :
 
         private class Control extends KeyAdapter {
 
-        @Override
-        public void keyReleased(KeyEvent e) {
-            player.keyReleased(e);
-        }
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    player.keyReleased(e);
+                }
 
-        @Override
-        public void keyPressed(KeyEvent e) {
+                @Override
+                public void keyPressed(KeyEvent e) {
 
-            player.keyPressed(e);
-            int x = player.getX();
-            int y = player.getY();
+                    player.keyPressed(e);
+                    int x = player.getX();
+                    int y = player.getY();
 
-            int key = e.getKeyCode();
+                    int key = e.getKeyCode();
 
-            if (key == KeyEvent.VK_SPACE) {
-                if (inGame) {
-                    if (!shotSinovac.isVisible()) {
-                        shotSinovac = new ShotSinovac(x, y);
+                    if (key == KeyEvent.VK_SPACE) {
+                        if (inGame) {
+                            if (!shotSinovac.isVisible()) {
+                                shotSinovac = new ShotSinovac(x, y);
+                            }
+                        }
                     }
+
                 }
             }
-
-        }
-    }
 
 
 
@@ -153,11 +163,16 @@ ex :
 ex :
 
     public class GamePlay extends JPanel{
-    private String data;
-    private Image background;
-    private Image bgGameOver;
-    private ArrayList<Virus> viruses;
-    private Player player;
+    
+            private String data;
+            
+            private Image background;
+            
+            private Image bgGameOver;
+            
+            private ArrayList<Virus> viruses;
+            
+            private Player player;
 
 
 
@@ -165,9 +180,9 @@ ex :
 ex :
 
     public class Player extends abstractSprite {
-    private int width, height;
-    public Player() {
-        initPlayer();
+            private int width, height;
+            public Player() {
+                initPlayer();
     }
     private void initPlayer() {
         var playerImg = "images/player.png";
@@ -191,10 +206,15 @@ ex :
 ex : 
 
     public class GamePlay extends JPanel{
+    
     private String data;
+    
     private Image background;
+    
     private Image bgGameOver;
+    
     private ArrayList<Virus> viruses;
+    
     private Player player;
 
 11. Interface
