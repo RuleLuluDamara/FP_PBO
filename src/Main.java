@@ -116,8 +116,8 @@ public class Main extends JPanel implements Interface  {
             frame.getContentPane().add(new GamePlay());
             frame.setResizable(false);
             frame.setLocationRelativeTo(null);
-            frame.setUndecorated(true);
-            frame.setAlwaysOnTop(true);
+            //frame.setUndecorated(true);
+            //frame.setAlwaysOnTop(true);
             frame.setVisible(true);
             closeIntro();
 

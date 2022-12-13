@@ -1,6 +1,6 @@
 import java.awt.Image;
 
-//abstract
+//Implement a generic Abtract Sprite
 public abstract class abstractSprite {
     private boolean visible;
     private Image image;

@@ -7,10 +7,10 @@ import java.util.*;
 import java.util.List;
 
 public class GamePlay extends JPanel{
-    private String data = "";
+    private String data;
     private Image background;
     private Image bgGameOver;
-    private List<Virus> viruses;
+    private ArrayList<Virus> viruses;
     private Player player;
     private ShotSinovac shotSinovac;
     private int direction = 1; //arah dan kecepatan alien
@@ -121,6 +121,8 @@ public class GamePlay extends JPanel{
                 timer.stop();
             }
             gameOver(g);
+            reset();
+
             saveScore();
         }
         Toolkit.getDefaultToolkit().sync();
@@ -143,7 +145,17 @@ public class GamePlay extends JPanel{
         g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH/2 + 50),
                 Interface.BOARD_HEIGHT / 2 + 60);
     }
+    public void reset(){
+        timer = new Timer(Interface.DELAY, new GameCycle());
+        timer.start();
 
+        viruses = new ArrayList<>();
+        player = new Player();
+        shotSinovac = new ShotSinovac();
+        inGame = false;
+        repaint();
+
+    }
     private void update() {
 
         if (deaths == Interface.NUMBER_OF_VIRUS) {
@@ -330,9 +342,27 @@ public class GamePlay extends JPanel{
     public void saveScore() {
         //String data = Integer.parseInt(score);
 
-        data =""+ score;
+//        String playername = JOptionPane.showInputDialog("Input player name");
+//        Scoreboard playersc = new Scoreboard(score, playername);
+//        data.add(playersc);
+          data =""+ score;
         File scoreDat = new File("scoreDat.txt");
-
+//        FileWriter writeFile = null;
+//        BufferedWriter writer = null;
+//        try{
+//            if(!scoreDat.exists()) throw new IllegalArgumentException();
+//                writer = new BufferedWriter(new FileWriter(scoreDat));
+//                writer.write( score);
+//                writer.newLine();
+//
+//            writer.close();
+//        }
+//        catch(FileNotFoundException e){
+//            throw new IllegalArgumentException();
+//        }
+//        catch(IOException e){
+//            System.out.println(e);
+//        }
         if(!scoreDat.exists()) {
             try {
                 scoreDat.createNewFile();
@@ -361,7 +391,3 @@ public class GamePlay extends JPanel{
         }
     }
 }
-
-//for (type variableName : arrayName) {
-//        // code block to be executed
-//        }
