@@ -13,18 +13,18 @@ Final project saya akan membuat suatu game yang didasari oleh bahasa pemrograman
 Terdapat beberapa aspek OOP yang saya buat sendiri, ini merupakan salah satu contoh dari setiap aspek OOP yang saya terapkan
 
 1. Casting/Conversion
-ex :
-
-    
-    g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2 + 100,
-                Interface.BOARD_HEIGHT / 2 + 50);
+ex :    
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString("SCORE", (Interface.BOARD_WIDTH/2 - 50),
+                Interface.BOARD_HEIGHT / 2 + 60);
+        g.drawString(String.valueOf(score), (Interface.BOARD_WIDTH/2 + 50),
+                Interface.BOARD_HEIGHT / 2 + 60);
 
 2. Encapsulation
 ex : 
 
-
     public int getY() {
- 
         return y;
     }
     public void setY(int y) {
@@ -34,7 +34,7 @@ ex :
 3. Contructor 
 ex :
 
-     public Menu(){
+    public Menu(){
         initMenu();
     }
 
@@ -44,8 +44,7 @@ ex :
     }
 4. Input-Output
 ex :
-
-    public void saveScore() {
+        public void saveScore() {
         //String data = Integer.parseInt(score);
 
         data =""+ score;
@@ -81,8 +80,7 @@ ex :
 
 5. Exception Handling
 Ex :
-
-    FileWriter writeFile = null;
+        FileWriter writeFile = null;
         BufferedWriter writer = null;
         try {
             writeFile = new FileWriter(scoreDat);
@@ -102,8 +100,8 @@ Ex :
         }
 
 6. Abstract
-ex :
-     
+ex 
+
     public void die() {
         visible = false;
     }
@@ -111,7 +109,7 @@ ex :
 7. OverRidding
 ex :
 
-    private class Control extends KeyAdapter {
+        private class Control extends KeyAdapter {
 
         @Override
         public void keyReleased(KeyEvent e) {
@@ -134,9 +132,173 @@ ex :
                     }
                 }
             }
-        }
-     }
 
+        }
+    }
+
+8. Array List
+ex :
+
+    public class GamePlay extends JPanel{
+    private String data;
+    private Image background;
+    private Image bgGameOver;
+    private ArrayList<Virus> viruses;
+    private Player player;
+
+9.  Inheritance
+ex :
+
+    public class Player extends abstractSprite {
+    private int width, height;
+    public Player() {
+        initPlayer();
+    }
+    private void initPlayer() {
+        var playerImg = "images/player.png";
+        var ii = new ImageIcon(playerImg);
+
+        width = ii.getImage().getWidth(null);
+        height = ii.getImage().getHeight(null);
+        setImage(ii.getImage());
+
+        //int START_X = screenWidth/2 - (width/2);
+        int START_X = Interface.BOARD_WIDTH/2;
+        setX(START_X);
+
+        //int START_Y = screenHeight;
+        int START_Y = Interface.BOARD_HEIGHT - 10 ;
+        setY(START_Y);
+    }
+
+10. Collection
+ex : 
+
+    public class GamePlay extends JPanel{
+    private String data;
+    private Image background;
+    private Image bgGameOver;
+    private ArrayList<Virus> viruses;
+    private Player player;
+
+11. Interface
+ex :
+    public interface Interface {
+
+    //int BOARD_WIDTH = 358;
+    int BOARD_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    //int BOARD_HEIGHT = 350;
+    int BOARD_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    int BORDER_RIGHT = 30;
+    int BORDER_LEFT = 5;
+    int GROUND = BOARD_HEIGHT - 200;
+    //int GROUND = 290;
+    int BOMB_HEIGHT = 40;
+
+
+    //Alien
+    int VIRUS_HEIGTH = 60;
+    int VIRUS_WIDTH = 60;
+    int VIRUS_INIT_X = BOARD_WIDTH/2 - Interface.PLAYER_WIDTH*2; //koordinat awal virus
+    int VIRUS_INIT_Y = 20;
+
+    int GO_DOWN = 30;
+    int NUMBER_OF_VIRUS = 28;
+    int CHANCE = 5;
+    int DELAY = 17;
+    int PLAYER_WIDTH = 90;
+    int PLAYER_HEIGHT = 90;
+
+    int BUTTON_WIDTH = 250;
+    int BUTTON_HEIGHT = 50;
+    int BUTTON_INIT_X = BOARD_WIDTH/2 - 125 ;
+    int START_INIT_Y = BOARD_HEIGHT/2;
+    int SETTING_BUTTON_Y = START_INIT_Y +  70;
+    int EXIT_BUTTON_Y = SETTING_BUTTON_Y + 70;
+    int BACK_BUTTON_Y = BOARD_HEIGHT - 100;
+}
+
+12. Overloading
+ex :
+
+
+    public void act(int direction) {
+            this.x += direction;
+        }
+
+    public void act() {
+            x += dx;
+            y += dy;
+
+            if (x <= 0) {
+                x = 0;
+            } //set boarder kiri
+
+            if (y <= Interface.BOARD_HEIGHT/2 - 200) {
+                y = Interface.BOARD_HEIGHT/2 - 200;
+            } //set boarder atas
+
+            if (x >= Interface.BOARD_WIDTH -  width - 5) {
+                x = Interface.BOARD_WIDTH -  width - 5;
+            } //set boarder kanan
+
+            if (y >= Interface.BOARD_HEIGHT - 2 * height - 20) {
+                y = Interface.BOARD_HEIGHT - 2 * height - 20;
+            } //set boarder bawah
+        }
+
+13. Polymorphism
+ex 
+
+
+    public void act(int direction) {
+            this.x += direction;
+        }
+
+    public void act() {
+            x += dx;
+            y += dy;
+
+            if (x <= 0) {
+                x = 0;
+            } //set boarder kiri
+
+            if (y <= Interface.BOARD_HEIGHT/2 - 200) {
+                y = Interface.BOARD_HEIGHT/2 - 200;
+            } //set boarder atas
+
+            if (x >= Interface.BOARD_WIDTH -  width - 5) {
+                x = Interface.BOARD_WIDTH -  width - 5;
+            } //set boarder kanan
+
+            if (y >= Interface.BOARD_HEIGHT - 2 * height - 20) {
+                y = Interface.BOARD_HEIGHT - 2 * height - 20;
+            } //set boarder bawah
+        }
+        
+14. Generics
+ex :
+
+        import java.util.Comparator;
+
+        public class Scoreboard<T, U>{
+            T score;
+            U nama;
+
+            public Scoreboard(T score, U nama){
+                this.score = score;
+                this.nama = nama;
+            }
+
+            public T getScore(){
+                return score;
+            }
+
+            public U getName(){
+                return nama;
+            }
+
+        }
 
 External Source :
 
